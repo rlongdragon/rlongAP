@@ -10,7 +10,7 @@ module.exports = {
    * @param {import('discord.js').Message} message
    */
   async execute(message) {
-    if (message.mentions.has(process.env.BOT_CLIENT_ID)) {
+    if (message.mentions.has(process.env.BOT_CLIENT_ID) && !(message.mentions.everyone)) {
       if (message.reference) {
         continueChat(message);
       }
