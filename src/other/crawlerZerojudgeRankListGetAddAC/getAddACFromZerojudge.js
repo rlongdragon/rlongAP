@@ -7,7 +7,7 @@ const { load } = require('cheerio')
 
 
 async function getACFromZerojudge() {
-  let nameList = process.env.ZEROJUDGE_NAME_LIST
+  let nameList = JSON.parse(process.env.ZEROJUDGE_STUDENT_NAME_LIST)
   let data = []
 
   for (let p = 1; p <= 3; p++) {
@@ -35,7 +35,6 @@ async function getACFromZerojudge() {
 }
 
 module.exports = async () => {
-
   await mongoose.connect(`mongodb://${MONGODB_URI}/${DB}`);
   let lastData = await mongoose.connection.db.collection(COLLECTION).findOne({}, { sort: { createTimeStamp: -1 } });
   if (!lastData) {
