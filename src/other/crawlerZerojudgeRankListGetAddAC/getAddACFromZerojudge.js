@@ -36,7 +36,7 @@ async function getACFromZerojudge() {
 
 module.exports = async () => {
   await mongoose.connect(`mongodb://${MONGODB_URI}/${DB}`);
-  let lastData = await mongoose.connection.db.collection(COLLECTION).findOne({}, { sort: { createTimeStamp: -1 } });
+  let lastData = await mongoose.connection.db.collection(COLLECTION).findOne({}, { sort: { "info.createTimeStamp": -1 } });
   if (!lastData) {
     console.error("DATA ERROR: No last data")
   }
