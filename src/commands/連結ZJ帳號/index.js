@@ -32,13 +32,16 @@ module.exports = {
       discordMemberId: interaction.member.id,
       zerojudgeUserId: userName,
     });
-    if (act == 1) {
+    if (act == 0) {
+      await interaction.reply(`連結成功: ${userName}`);
+    } else if (act == 1) {
       await interaction.reply("重複連結");
       return;
     } else if (act == 2) {
       await interaction.reply(`新的連結: ${userName}`);
       return;
+    } else {
+      console.log("執行遇到未知的問題")
     }
-    await interaction.reply(`連結成功: ${userName}`);
   },
 };

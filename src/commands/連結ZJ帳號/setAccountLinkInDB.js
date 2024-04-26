@@ -26,9 +26,10 @@ module.exports = async (data) => {
     { $set: { "data.$[element].zerojudgeUserId": data.zerojudgeUserId } },
     { arrayFilters: [{ "element.discordMemberId": data.discordMemberId }] }
   )
-
+  console.log(dbOperateReturn)
   if (dbOperateReturn.modifiedCount) {
     await mongoose.connection.close()
+    console.log("success")
     return 0
   }
   
@@ -39,13 +40,13 @@ module.exports = async (data) => {
       await mongoose.connection.close()
       return 1
     }
-
-    // insert new data
-    await mongoose.connection.db.collection(COLLECTION).updateOne(
-      { "dataType": "accountLink" },
-      { $push: { "data": data } }
-    )
-    await mongoose.connection.close()
-    return 2
   }
+
+  // insert new data
+  await mongoose.connection.db.collection(COLLECTION).updateOne(
+    { "dataType": "accountLink" },
+    { $push: { "data": data } }
+  )
+  await mongoose.connection.close()
+  return 2
 }

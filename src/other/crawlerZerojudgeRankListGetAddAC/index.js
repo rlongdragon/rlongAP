@@ -38,7 +38,7 @@ function setWeekWork(clock, week, Client, callback) {
  * @param { Client } client 
  */
 module.exports = async function (client) {
-  setWeekWork(17, 7, client,
+  setWeekWork(23, 7, client,
     /**
      * @param {Client} client
     */
