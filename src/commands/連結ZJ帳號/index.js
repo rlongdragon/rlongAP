@@ -16,7 +16,7 @@ module.exports = {
    * @param {import("discord.js").CommandInteraction} interaction 
    */
   async execute(interaction) {
-    const userID = interaction.options.getString("user id");
+    const userID = interaction.options.getString("user_id");
     // 正則表達式，確認是不是全由數字組成
     const regex = /^[0-9]*$/;
     if (!regex.test(userID)) {
@@ -32,5 +32,6 @@ module.exports = {
       discordMemberId: interaction.member.id,
       zerojudgeUserId: userName,
     });
+    await interaction.reply("連結成功");
   },
 };
