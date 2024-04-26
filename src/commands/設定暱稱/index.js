@@ -9,7 +9,7 @@ module.exports = {
     .setDescription("填入基本資料，更改為制式暱稱")
     .addStringOption(option =>
       option.setName("class")
-        .setDescription("班級座號(30425)")
+        .setDescription("班級(304)")
         .setRequired(true)
     )
     .addStringOption(option =>
