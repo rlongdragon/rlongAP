@@ -25,13 +25,27 @@ module.exports = async (data) => {
     { "dataType": "accountLink" },
     { $set: { "data.$[element].zerojudgeUserId": data.zerojudgeUserId } },
     { arrayFilters: [{ "element.discordMemberId": data.discordMemberId }] }
-  ).modifiedCount
+  )
 
-  if (!dbOperateReturn) {
-    // Insert new data
-    dbOperateReturn = await mongoose.connection.db.collection(COLLECTION).updateOne(
-      { 'dataType': 'accountLink' },
-      { $push: { data: data } }
+  if (dbOperateReturn.modifiedCount) {
+    await mongoose.connection.close()
+    return 0
+  }
+  
+  findReturn = await mongoose.connection.db.collection(COLLECTION).find({ "dataType": "accountLink" }).toArray()
+  // check does discordMemberId is already exist
+  for (let i = 0; i < findReturn[0].data.length; i++) {
+    if (findReturn[0].data[i].discordMemberId === data.discordMemberId) {
+      await mongoose.connection.close()
+      return 1
+    }
+
+    // insert new data
+    await mongoose.connection.db.collection(COLLECTION).updateOne(
+      { "dataType": "accountLink" },
+      { $push: { "data": data } }
     )
+    await mongoose.connection.close()
+    return 2
   }
 }

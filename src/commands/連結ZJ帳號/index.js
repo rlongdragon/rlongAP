@@ -28,10 +28,17 @@ module.exports = {
       await interaction.reply("找不到該帳號");
       return;
     }
-    await setAccountLinkInDB({
+    act = await setAccountLinkInDB({
       discordMemberId: interaction.member.id,
       zerojudgeUserId: userName,
     });
-    await interaction.reply("連結成功");
+    if (act == 1) {
+      await interaction.reply("重複連結");
+      return;
+    } else if (act == 2) {
+      await interaction.reply(`新的連結: ${userName}`);
+      return;
+    }
+    await interaction.reply(`連結成功: ${userName}`);
   },
 };
