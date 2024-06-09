@@ -10,7 +10,7 @@ async function ask(chatHistory, prompt) {
   prompt = prompt.replace(`<@${process.env.BOT_CLIENT_ID}>`, "");
 
   const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-  const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
   const chat = model.startChat({
     history: chatHistory,

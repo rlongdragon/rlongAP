@@ -2,6 +2,7 @@ const { Client } = require('discord.js')
 const getAddACFromZerojudge = require('./getAddACFromZerojudge')
 
 function setWeekWork(clock, week, Client, callback) {
+  console.log(`時間設為星期${week}的${clock}點`)
   const targetHour = clock;
   const targetDayOfWeek = week;
 
@@ -17,6 +18,10 @@ function setWeekWork(clock, week, Client, callback) {
 
     const delay = targetDate.getTime() - now.getTime();
     const oneDay = 24 * 60 * 60 * 1000;
+
+    console.log(now.toLocaleDateString())
+    console.log(targetDate.toLocaleDateString())
+    console.log(`${delay/1000/60}分鐘後下一輪`)
 
     if (delay > oneDay) {
       setTimeout(() => {
@@ -38,11 +43,12 @@ function setWeekWork(clock, week, Client, callback) {
  * @param { Client } client 
  */
 module.exports = async function (client) {
-  setWeekWork(23, 7, client,
+  setWeekWork(17, 5, client,
     /**
      * @param {Client} client
     */
     async (client) => {
+      console.log("排程啟動")
       const addAC = await getAddACFromZerojudge()
       // post announcement 
       let embed = {
